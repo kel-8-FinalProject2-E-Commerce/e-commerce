@@ -1,26 +1,32 @@
 import React from "react";
-import {Route,  Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./component/molecules";
-import { Home,  Login,  Cart } from "./pages";
-import {ProtectRoute} from './utils/PrivateRoute/PrivateRoute'
+import { Home, Login, Cart } from "./pages";
+import AdminRekapPenjualan from "./pages/AdminRekapPenjualan/AdminRekapPenjualan";
+import Detail from "./pages/Detail/Detail";
+import { ProtectRoute } from "./utils/PrivateRoute/PrivateRoute";
 function App() {
-
-  const {PrivateRouterFalseLogin, PrivateRouterTrueLogin} = ProtectRoute()
+  const { PrivateRouterFalseLogin, PrivateRouterTrueLogin } = ProtectRoute();
   return (
     <div>
       <Navbar />
       <div className="pt-16 ">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/detail/:id" element={<Detail />} />
 
           <Route element={<PrivateRouterTrueLogin />}>
-            <Route path="/login" element={<Login/>}/>
+            <Route path="/login" element={<Login />} />
           </Route>
 
           <Route element={<PrivateRouterFalseLogin />}>
             <Route path="/cart" element={<Cart />} />
           </Route>
 
+          <Route
+            path="/admin-rekap-penjualan"
+            element={<AdminRekapPenjualan />}
+          />
         </Routes>
       </div>
     </div>
