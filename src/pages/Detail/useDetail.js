@@ -44,7 +44,8 @@ if(token === null){
         .then((response)=>{
           const josin = JSON.parse(localStorage.getItem('local'))
           josin.map((item, i )=>{
-            if(response.data.productId === !item.productId){
+            // console.log(response.data.products[0].productId , item.productId, "cek in")
+            if(response.data.products[0].productId !== item.productId){
               const data = JSON.parse(localStorage.getItem('local'))
               const pushLocal = [...data, response.data.products[0]]
               localStorage.setItem('local', JSON.stringify(pushLocal))
