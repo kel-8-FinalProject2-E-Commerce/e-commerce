@@ -2,16 +2,15 @@ import axios from "axios"
 import { useState } from "react"
 
 const useCardData = (value, item) => {
-  const [datacrement, setIncrement] = useState(value)
+  const [datacrement, setIncrement] = useState(parseInt(value))
   const counterIncrement =()=>{
-    setIncrement(datacrement + 1)
+    setIncrement(parseInt(datacrement + 1))
   }
   const counterDeccrement =()=>{
-    setIncrement(datacrement - 1)
+    setIncrement((parseInt(datacrement - 1)))
   }
 
   const udapteDataproduct = (e)=>{
-    console.log("jancok ");
     
     axios({
       method: "put",
@@ -32,7 +31,7 @@ const useCardData = (value, item) => {
     .catch(err => console.log(err))
   
   }
-  return {datacrement, counterIncrement, counterDeccrement, udapteDataproduct}
+  return {datacrement, counterIncrement, counterDeccrement, udapteDataproduct, setIncrement}
 }
 
 export default useCardData

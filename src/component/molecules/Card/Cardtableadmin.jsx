@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addProductStock } from '../../../config/store/reducer/ProductSlice/ProductSlice'
 import { Button, Input } from '../../atoms'
 import useCardData from './useCardData'
 
 const Cardtableadmin = ({item}) => {
-  const {counterDeccrement, counterIncrement, datacrement, udapteDataproduct} = useCardData(item.rating.count, item)
+  const count = parseInt(item.rating.count)
+  const {counterDeccrement, counterIncrement, datacrement,setIncrement} = useCardData(count, item)
+  const id = item.id
+  const dispatch = useDispatch()
   return (
     <>
       <td className='flex'>
@@ -19,12 +24,14 @@ const Cardtableadmin = ({item}) => {
       <td className='pr-4 pt-3 '>
         <div className='flex gap-x-2'> 
         <Button name={"-"} handleSubmit={counterDeccrement}/>
-        <Input value={datacrement} onChange={(e)=> setData(e.target.value)} type="number" className={"border-2 py-1 text-xl border-green-100"}/>
+        <Input value={datacrement} onChange={(e)=> setIncrement(e.target.value)} type="number" className={"border-2 py-1 text-xl border-green-100"}/>
         <Button name={"+"} handleSubmit={counterIncrement}/>
         </div>
       </td>
       <td className="pt-3">
-      <Button name={"update"} handleSubmit={udapteDataproduct}  className="h-14 "/ >
+      <Button name={"update"} handleSubmit={()=>{
+        dispatch(addProductStock( {id, datacrement}))
+      }}  className="h-14 "/ >
       </td>
       </>
   )

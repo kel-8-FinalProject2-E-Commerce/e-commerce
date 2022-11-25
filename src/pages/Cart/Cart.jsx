@@ -5,9 +5,8 @@ import { CartItems } from "../../component/molecules";
 import Sum from "./Sum";
 import { useCart } from "./useCart";
 function Cart() {
-  const {dataStorageChart} = useCart()
-  const product = localStorage.getItem('local')
-  
+  const { dataChart, Total, handleCheckout} = useCart();
+  let {sum} = Total()
   return (
     <div className="mx-6 mt-10">
       <div className="flex items-center">
@@ -22,14 +21,16 @@ function Cart() {
         <div className="w-1/12">Total</div>
       </div>
       <div className="h-1 bg-black rounded-full"></div>
-      {JSON.parse(product)?.map((item, i)=> {
-        return(
-          <CartItems data={item} idbarang={item.id}/>
-        )
-      })}
-      {dataStorageChart && <Sum data={dataStorageChart} />}
+      {dataChart?.map((item) => {
+          return <CartItems data={item} />;
+        })}
+
+       {
+        sum ? <Sum data={sum} /> : 
+        <div className="flex justify-center items-center h-full w-full font-bold text-xl">Belanja bro</div>
+       }
       <div className="flex justify-end">
-        <Button name={"Checkout"} />
+        <Button name={"Checkout"} onClick={handleCheckout} />
       </div>
     </div>
   );

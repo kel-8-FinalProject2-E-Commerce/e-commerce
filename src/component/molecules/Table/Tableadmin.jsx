@@ -20,7 +20,7 @@ const Tableadmin = () => {
                 <>
                     <tbody className='align-top even:bg-green-100' key={item.i} >
                         <tr className=''>
-                        <Cardtableadmin item = {item} />    
+                        <Cardtableadmin item = {item.item} />    
                         </tr>
                     </tbody>    
                 </>

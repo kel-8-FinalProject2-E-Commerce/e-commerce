@@ -1,25 +1,36 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import {  useState } from "react";
+import { useDispatch } from "react-redux";
 
-const useCartItems = (id) => {
-  const [dataProduct, setDataProduct] = useState([]) 
-  useEffect(()=>{
-    axios.get(`https://fakestoreapi.com/products/${id}`)
-    .then((response) => {
-      setDataProduct(response.data)
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  },[])
+import { updateCountCart } from "../../../config/store/reducer/ProductSlice/ProductSlice";
+const useCartItems = (data) => {
+  const dispatch = useDispatch()
+  const {cart, item} = data
 
-  const Total = (quntity, price) =>{
-    const sumALL = quntity * price
-    return {sumALL}
+  const [Quantity, setQuantity] = useState(cart);
+  const [alert, setAlert] = useState("")
+  const increment = ()=>{
+    if(Quantity > item.rating.count) {
+      setAlert("out of stock")
+    } else{
+      setQuantity(Quantity + 1)
+      dispatch(updateCountCart({id : item.id, cart : Quantity +1}))
+    }
   }
 
+  const onChangecart = (e) =>{
+    if(e.target.value > item.rating.count){
+      setAlert("out of stock")
+    } else{
+      setQuantity(e.target.value)
+      dispatch(updateCountCart({id : item.id, cart : e.target.value}))
+    }
+  }
 
-  return {dataProduct,Total}
-}
+  const Decrement =()=>{
+    setQuantity(Quantity - 1)
+    dispatch(updateCountCart({id : item.id, cart : Quantity -1}))
+  }
+  return {Quantity, alert, increment, Decrement}
+};
 
-export default useCartItems
+export default useCartItems;

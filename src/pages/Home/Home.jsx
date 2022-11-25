@@ -10,7 +10,7 @@ const Home = () => {
         <div className='flex gap-5 flex-wrap justify-center'>
            {product?.map((item, i )=>{
             return(
-                <Card key={i} data={item} />
+                <Card key={i} data={item.item} />
             )
            })}
         </div>

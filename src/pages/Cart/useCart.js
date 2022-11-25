@@ -1,32 +1,26 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-function useCart(datatotal) {
-  const id = localStorage.getItem("id");
-  const [data, setData] = useState()
+import { useDispatch, useSelector } from "react-redux";
+import {addToCheckout} from "../../config/store/reducer/cartSlice/cartSlice";
+import Swal from "sweetalert2";
+import { chekcoutPorduct } from "../../config/store/reducer/ProductSlice/ProductSlice";
+function useCart() {
   const dispatch = useDispatch();
+  const product = useSelector((state) => state.products.products)
+  const dataChart = product.filter(item => item.cart > 0)
 
-  useEffect(()=>{
-    if(!localStorage.getItem('local')){
-      axios.get(`https://fakestoreapi.com/carts/${id}`)
-    .then((response) => {
-      localStorage.setItem('local', JSON.stringify(response.data.products))
-      setData(response.data.products)
+  const Total =() =>{
+    let sum = 0;
+    dataChart.map((item, i)=>{
+      sum += item.cart * item.item.price
     })
-    .catch((err)=>{
-      console.log(err);
-    })
-    } else{
-      console.log("");
-    }
-  },[dispatch])
-  
-  const Mantul = (josin) =>{
-    return {josin}
+    return {sum}
   }
 
-  const dataStorageChart = localStorage.getItem('local')
-  return {data, dataStorageChart, Mantul, setData}
+  const handleCheckout = () =>{
+    dispatch(chekcoutPorduct(dataChart))
+    
+  }
+  
+  return { dataChart, Total, handleCheckout };
 }
 
-export { useCart }
+export { useCart };
