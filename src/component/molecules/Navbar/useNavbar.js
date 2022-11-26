@@ -20,6 +20,33 @@ const useNavbar = () => {
   const handleLogout = () => {
     dispatch(logout())
   }
+  const menuNavbar = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: 'Cart',
+      link: '/cart'
+    },
+    {
+      name : 'electronics',
+      link : '/electronics'
+    },
+    {
+      name : 'jewelery',
+      link : '/jewelery'
+    },
+    {
+      name : 'men,s clothing',
+      link : '/menst-cloting'
+    },
+    {
+      name: '/'
+    }
+
+
+  ]
   
   return { isfalse, isLogin , handleLogout, isAdmin};
 };

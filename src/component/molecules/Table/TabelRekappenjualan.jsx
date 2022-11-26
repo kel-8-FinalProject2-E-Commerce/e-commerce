@@ -20,9 +20,9 @@ const TabelRekappenjualan = () => {
             <>
               <tbody className="align-top h-10  even:bg-green-100" key={item.i}>
                 <tr className="text-left ">
-                  <th className="w-8/12 pl-4">
-                    <div>{item.item.title}</div>
+                  <th className="w-8/12 pl-4 flex items-center gap-x-5">
                     <img src={item.item.image} alt="image" className="w-20"/>
+                    <div>{item.item.title}</div>
                   </th>
                   <th className="w-1/12">{item.item.price} $</th>
                   <th className="w-1/12">{item.checkout}</th>

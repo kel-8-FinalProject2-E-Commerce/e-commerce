@@ -4,7 +4,7 @@ import useCartItems from "./useCartItems";
 
 const CartItems = ({ data }) => {
   const {item, cart} = data
-  const {Decrement, Quantity, alert, increment } = useCartItems(data);
+  const {Decrement,onChangecart, alert, increment } = useCartItems(data);
   return (
     <div>
       <div className="flex w-full mt-3 font-bold capitalize items-center bg-slate-100">
@@ -12,9 +12,8 @@ const CartItems = ({ data }) => {
           <div className="h-48 flex justify-center items-center">
             <img src={item.image} alt="imageproduct" className="w-32" />
           </div>
-          <div>
-            <p>{data.title}</p>
-          </div>
+            <p>{item.title}</p>
+            <p className="text-red-800 shadow-2xl font-bold text-xl">{alert}</p>
         </div>
         <div className="w-1/12">{item.price} $ </div>
         <div className="w-2/12 pr-10 flex items-center gap-x-2">
@@ -23,7 +22,7 @@ const CartItems = ({ data }) => {
             onClick={Decrement}
             className="bg-white "
           />
-          <Input className={""} value={cart} type="number" />
+          <Input className={""} value={cart} onChange={onChangecart} type="number" />
           <Button name={"+"} onClick={increment} />
         </div>
         <div className="w-1/12">{item.price * data.cart} $</div>

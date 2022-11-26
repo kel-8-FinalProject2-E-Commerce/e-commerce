@@ -31,10 +31,15 @@ function useDetail(props) {
     if (token === null) {
       naviagte("/login");
     } else {
-      console.log("masuk");
-      dispatch(addtoChart({id : props.id , cart : quantity}))
+      if(dataproduct.item.rating.count === 0 || dataproduct.item.rating.count <= quantity)
+      {
+        console.log("stok tidak cukup");
+      } else{
+        dispatch(addtoChart({id : props.id , cart : quantity}))
+      }
     }
   };
+  console.log(dataproduct.item.rating.count, "data product");
   
   return { dataproduct, quantity, handleDecrement, handleIncrement, Addcart };
 }
