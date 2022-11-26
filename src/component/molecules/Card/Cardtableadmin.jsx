@@ -6,7 +6,7 @@ import useCardData from './useCardData'
 
 const Cardtableadmin = ({item}) => {
   const count = parseInt(item.rating.count)
-  const {counterDeccrement, counterIncrement, datacrement,setIncrement} = useCardData(count, item)
+  const {counterDeccrement, counterIncrement, datacrement,setIncrement, handleCondition, isFalse} = useCardData(count, item)
   const id = item.id
   const dispatch = useDispatch()
   return (
@@ -23,15 +23,18 @@ const Cardtableadmin = ({item}) => {
       </td>
       <td className='pr-4 pt-3 '>
         <div className='flex gap-x-2'> 
-        <Button name={"-"} handleSubmit={counterDeccrement}/>
-        <Input value={datacrement} onChange={(e)=> setIncrement(e.target.value)} type="number" className={"border-2 py-1 text-xl border-green-100"}/>
-        <Button name={"+"} handleSubmit={counterIncrement}/>
+        <Button name={"-"} disabled={isFalse} handleSubmit={counterDeccrement}/>
+        <Input value={datacrement} disabled={isFalse}  onChange={(e)=> setIncrement(e.target.value)} type="number" className={"border-2  py-1 text-xl border-green-400"}/>
+        <Button name={"+"} disabled={isFalse} handleSubmit={counterIncrement}/>
         </div>
       </td>
       <td className="pt-3">
-      <Button name={"update"} handleSubmit={()=>{
-        dispatch(addProductStock( {id, datacrement}))
-      }}  className="h-14 "/ >
+      <Button name={isFalse ? "edit" : "update"} handleSubmit={
+        isFalse ? handleCondition : ()=>{
+          dispatch(addProductStock( {id, datacrement}))
+          handleCondition()
+        }
+      }  className="h-14 w-28"/ >
       </td>
       </>
   )

@@ -13,8 +13,16 @@ const Swallogout = () =>{
         title: "invalid login",
   }), 2000)
 }
-    return { SwalLogin, Swallogout }
+
+const SwalAdd = () =>{
+  setInterval( Swal.fire({
+      icon: 'success',
+      title: "success add",
+}), 2000)
+}
+    return { SwalLogin, Swallogout, SwalAdd }
 }
 
 export default swallGlobal
+
     

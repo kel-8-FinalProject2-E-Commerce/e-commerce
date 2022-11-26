@@ -34,7 +34,7 @@ const TabelRekappenjualan = () => {
         })}
       </table>
       <div className="flex justify-end bg-green-100 text-black font-bold text-xl px-64 py-3 ">
-        TOTAL PENDAPATAN {sum} $
+        TOTAL PENDAPATAN = <span className="mx-3 font-bold text-orange-900">{sum}</span> $ 
       </div>
     </>
   );

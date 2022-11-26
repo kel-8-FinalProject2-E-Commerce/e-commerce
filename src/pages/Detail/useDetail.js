@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDetailProduct } from "../../config/store/reducer/DetailProductSlice/DetailProductSlice";
 import { useNavigate } from "react-router-dom";
 import { addtoChart } from "../../config/store/reducer/ProductSlice/ProductSlice";
+import Swal from "sweetalert2";
 function useDetail(props) {
   const dispatch = useDispatch();
   const naviagte = useNavigate();
@@ -16,8 +17,8 @@ function useDetail(props) {
     setQuantity(quantity + 1);
   };
   const handleDecrement = () => {
-    if (quantity <= 0) {
-      setQuantity(0);
+    if (quantity <= 1) {
+      setQuantity(1);
     } else {
       setQuantity(quantity - 1);
     }
@@ -31,11 +32,18 @@ function useDetail(props) {
     if (token === null) {
       naviagte("/login");
     } else {
-      if(dataproduct.item.rating.count === 0 || dataproduct.item.rating.count <= quantity)
+      if(dataproduct.item.rating.count === 0 || dataproduct.item.rating.count < quantity)
       {
-        console.log("stok tidak cukup");
+        Swal.fire({
+          icon: 'error',
+          title: "Stok tidak cukup",
+    })
       } else{
         dispatch(addtoChart({id : props.id , cart : quantity}))
+        Swal.fire({
+          icon: 'success',
+          title: "berhasil ditambahkan",
+    })
       }
     }
   };

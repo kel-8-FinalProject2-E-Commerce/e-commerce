@@ -33,5 +33,5 @@ export const UseHome =() =>{
     useEffect(()=>{
         dispatch(fetchProduct())
     }, [dispatch])
-    return {all, handleFilter, dataFilter}
+    return {all, product, handleFilter, dataFilter}
 }

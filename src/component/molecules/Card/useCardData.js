@@ -3,6 +3,11 @@ import { useState } from "react"
 
 const useCardData = (value, item) => {
   const [datacrement, setIncrement] = useState(parseInt(value))
+  const [isFalse , setIsFalse] = useState(true)
+
+  const handleCondition = () =>{
+    setIsFalse(!isFalse)
+  }
   const counterIncrement =()=>{
     setIncrement(parseInt(datacrement + 1))
   }
@@ -31,7 +36,7 @@ const useCardData = (value, item) => {
     .catch(err => console.log(err))
   
   }
-  return {datacrement, counterIncrement, counterDeccrement, udapteDataproduct, setIncrement}
+  return {datacrement, counterIncrement, counterDeccrement, udapteDataproduct, setIncrement, handleCondition, isFalse}
 }
 
 export default useCardData
